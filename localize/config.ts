@@ -33,6 +33,9 @@ export const LocalizedStrings: {[key: string]: {[key: string]: string}} = {
     FieldsPasswordConfirm: {
         en: "Confirm your password",
     },
+    FieldsUserRole: {
+        en: "User role",
+    },
     SignUpText: {
         en: "Sign Up",
     },
@@ -106,5 +109,36 @@ export const LocalizedStrings: {[key: string]: {[key: string]: string}} = {
     // Forgot Password Errors
     ForgotPasswordEmailRequired: {
         en: "Email is required",
-    }
+    },
+
+    // Reset Password Errors
+    ResetPasswordPasswordMinimumLength: {
+        en: "Password must be at least 6 characters",
+    },
+    ResetPasswordPasswordMismatch: {
+        en: "Passwords do not match",
+    },
+
+    // Team Invite
+    TeamInviteHeading: {
+        en: "Invite a team member",
+    },
+    TeamInviteDescription: {
+        en: "Invite a team member to join your organization",
+    },
+    TeamInviteSubmitButton: {
+        en: "Invite Member",
+    },
+    TeamInviteFirstNameRequired: {
+        en: "First name is required",
+    },
+    TeamInviteLastNameRequired: {
+        en: "Last name is required",
+    },
+    TeamInviteEmailRequired: {
+        en: "Email is required",
+    },
+    TeamInviteEmailInvalid: {
+        en: "Email is invalid",
+    },
 }

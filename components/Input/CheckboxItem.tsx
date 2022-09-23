@@ -7,10 +7,11 @@ interface CheckboxItemProps{
     value?: boolean;
     option: SelectValue;
     onChange: (value: boolean) => void;
+    size?: "sm" | "md" | "lg"
 }
 
 export const CheckboxItem: FunctionComponent<CheckboxItemProps> = (props) => {
-    const { name, value, option, onChange } = props;
+    const { name, size, value, option, onChange } = props;
 
     let checkboxId = "";
 
@@ -29,7 +30,7 @@ export const CheckboxItem: FunctionComponent<CheckboxItemProps> = (props) => {
                     onChange(e.target.checked);
                 }}
             />
-            <label htmlFor={checkboxId} className="text-lg flex-1">
+            <label htmlFor={checkboxId} className={`text-${size ? size : "md"} flex-1`}>
                 {option.label}
             </label>
         </div>

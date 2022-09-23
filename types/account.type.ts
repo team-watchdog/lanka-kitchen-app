@@ -1,3 +1,10 @@
+export interface UserRoleDef{
+    id: number;
+    label: string;
+    description: string;
+    allowedActions: string[];
+}
+
 export interface Account{
     id: number;
     firstName: string;
@@ -7,7 +14,8 @@ export interface Account{
     hashedPassword: string;
     verified: boolean;
     isActive: boolean;
-    userRoles: number[]
+    userRoles: number[];
+    userRoleDefs: Partial<UserRoleDef>[];
     resetPasswordHash: string | null;
     resetPasswordHashExpiry: Date | null;
     confirmEmailHash: string | null;

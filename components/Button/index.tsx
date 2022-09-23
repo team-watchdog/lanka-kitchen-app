@@ -28,14 +28,16 @@ const dangerClasses = [
 ];
 
 interface ButtonProps{
-    onMouseDown: () => void;
+    onMouseDown?: () => void;
     loading?: boolean;
+    disabled?: boolean;
     children: ReactNode | ReactNode[],
     type: "primary" | "secondary" | "default" | "danger";
+    actionType?: "submit" | "button";
 }
 
 const Button: FunctionComponent<ButtonProps> = (props) => {
-    const { loading, type, children, onMouseDown } = props;
+    const { loading, disabled, type, actionType, children, onMouseDown } = props;
 
     let classes = commonClasses;
 
@@ -47,11 +49,13 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
     return (
         <button
             className={classes.join(" ")}
+            type={actionType ? actionType : "button"}
+            disabled={disabled ? disabled : false}
             onClick={(e) => {
                 e.preventDefault();
 
                 if (loading) return;
-                onMouseDown();
+                if (onMouseDown) onMouseDown();
             }}
         >
             {loading ? "Loading" : children}

@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMutation, ApolloError } from "@apollo/client";
+import { toast } from "react-toastify";
 
 // components
 import { FormItem } from "../../components/Form";
@@ -58,7 +59,10 @@ const SignIn: NextPage = () => {
                             } catch (e) {
                                 let parsedErrors = (e as ApolloError).graphQLErrors;
                                 const messages = parsedErrors.map((err) => err.message);
-                                console.log(messages);
+                                
+                                for (let message of messages) {
+                                    toast.error(message);
+                                }
                             }
                         }}
                         validate={(values) => {

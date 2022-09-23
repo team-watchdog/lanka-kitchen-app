@@ -1,13 +1,60 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html,
 body {
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 a{
   color: #244583;
+}
+
+/* TABLE STYLES */
+
+table,
+th,
+td {
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.6em 1em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+    word-break: break-word;
+}
+
+td:first-child, th:first-child{
+    padding-left: 0.4rem;
+}
+td:last-child, th:last-child{
+    padding-right: 0.4rem;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+  font-weight: 700;
+}
+
+tr:nth-child(even){
+    background-color: #f1f5f9;
+}
+
+tr:hover{
+    background-color: #e2e8f0;
 }

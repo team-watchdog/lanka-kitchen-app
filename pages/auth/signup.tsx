@@ -4,6 +4,7 @@ import Link from "next/link";
 import isEmail from "validator/lib/isEmail";
 import { ApolloError, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
 
 // containers
 import LayoutWithoutAuth from "../../containers/LayoutWithoutAuth";
@@ -69,7 +70,10 @@ const SignUp: NextPage = () => {
                         } catch (e) {
                             let parsedErrors = (e as ApolloError).graphQLErrors;
                             const messages = parsedErrors.map((err) => err.message);
-                            console.log(messages);
+
+                            for (let message of messages) {
+                                toast.error(message);
+                            }
                         }
                     }}
                     validate={(values) => {
