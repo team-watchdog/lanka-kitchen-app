@@ -75,7 +75,11 @@ const ForgotPassword: NextPage = () => {
                                     />
                                 </FormItem>
                                 <div>
-                                    <Button type="primary" onMouseDown={() => submitForm()}>{getLocalizedString("ResetPasswordText", lang)}</Button>
+                                    <Button 
+                                        type="primary" 
+                                        onMouseDown={() => submitForm()}
+                                        loading={submitting}
+                                    >{getLocalizedString("ResetPasswordText", lang)}</Button>
                                 </div>
                                 <div className="py-4">
                                     <div>

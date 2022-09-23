@@ -11,6 +11,7 @@ const nextConfig = {
       $handle-color: #666666;
     `,
   },
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig

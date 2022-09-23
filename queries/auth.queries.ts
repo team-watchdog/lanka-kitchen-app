@@ -28,4 +28,11 @@ export const AuthMutations = {
             }
         }
     `,
+    resetPassword: gql`
+        mutation ResetPassword($data: ResetPasswordInput!) {
+            resetPassword(data: $data) {
+                success
+            }
+        }
+    `
 }

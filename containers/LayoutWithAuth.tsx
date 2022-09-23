@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import {
     ApolloProvider,
 } from "@apollo/client";
+import { ToastContainer } from 'react-toastify';
 
 // hooks
 import { useAuth } from "../lib/auth";
@@ -12,6 +13,9 @@ import { getClientWithAuth } from "../api/clientWithAuth";
 
 // containers
 import { Header } from "./Header";
+
+// styles
+import 'react-toastify/dist/ReactToastify.css';
 
 interface LayoutWithAuthProps{
     children: ReactNode | ReactNode[];
@@ -39,6 +43,7 @@ const LayoutWithAuth: FunctionComponent<LayoutWithAuthProps> = ({ children }) =>
             <div>
                 {children}
             </div>
+            <ToastContainer />
         </ApolloProvider>
     )
 }

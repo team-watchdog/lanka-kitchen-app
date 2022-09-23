@@ -5,12 +5,16 @@ import {
     ApolloClient,
     InMemoryCache,
 } from "@apollo/client";
+import { ToastContainer } from 'react-toastify';
 
 // hooks
 import { useAuth } from "../lib/auth";
 
 // containers
 import { Header } from "./Header";
+
+// styles
+import 'react-toastify/dist/ReactToastify.css';
 
 interface LayoutWithoutAuthProps{
     children: ReactNode | ReactNode[];
@@ -41,6 +45,7 @@ const LayoutWithoutAuth: FunctionComponent<LayoutWithoutAuthProps> = ({ children
             <div>
                 {children}
             </div>
+            <ToastContainer />
         </ApolloProvider>
     )
 }

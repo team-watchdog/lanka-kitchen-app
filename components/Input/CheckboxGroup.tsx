@@ -10,16 +10,18 @@ interface CheckboxGroupProps{
 }
 
 export const CheckboxGroup: FunctionComponent<CheckboxGroupProps> = (props) => {
-    const { options } = props;
+    const { values, options, onChange } = props;
 
     return (
         <div className="flex gap-4 flex-col">
             {options.map((option, i) => (
                 <CheckboxItem 
-                    name="hello"
+                    name={`checkbox-item-${option.value}`}
                     option={option}
-                    onChange={(value) => {
-                        console.log(value);
+                    value={values ? values.includes(option.value) : false}
+                    onChange={(checked) => {
+                        if (checked) onChange([...(values ? values : []), option.value]);
+                        else onChange((values ? values : []).filter((value) => value !== option.value));
                     }}
                     key={i}
                 />

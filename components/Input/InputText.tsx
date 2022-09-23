@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import { InputStatus } from "./types";
 
 interface InputTextProps{
-    type?: "text" | "password" | "email";
+    type?: "text" | "password" | "email" | "textarea";
     value?: string;
     placeholder?: string;
     status?: InputStatus;
@@ -31,7 +31,7 @@ export const InputText: FunctionComponent<InputTextProps> = (props) => {
         <input 
             type={type ? type : "text"} 
             placeholder={placeholder ? placeholder: undefined}
-            value={value ? value : undefined}
+            value={value ? value : ""}
             className={inputStyles.join(" ")}
             onChange={(e) => {
                 if (onChange) onChange(e.target.value);
