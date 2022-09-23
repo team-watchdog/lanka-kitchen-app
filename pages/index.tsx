@@ -68,26 +68,28 @@ const DirectoryContainer: FunctionComponent = () => {
     if (loading) return <Loading />
 
     return (
-        <div className="py-4 grid grid-cols-6 gap-2">
-            <div className="col-span-2 p-4 bg-slate-50 rounded-md">
-                <div className="flex">
-                    <InputText 
-                        placeholder="Search for Aid Efforts"
-                        value=""
-                        onChange={(value) => {
-                        }}
+        <div className="h-screen flex-row pb-4">
+            <div className="flex">
+                <InputText 
+                    placeholder="Search for organizations"
+                    value=""
+                    onChange={(value) => {
+                    }}
+                />
+            </div>
+            <div className="py-4 grid grid-cols-6 gap-2 h-full flex-1">
+                <div className="col-span-2 p-2 bg-slate-50 rounded-md">
+                    <div className="py-2">
+                        {data?.getOrganizations.map((organization, i) => (
+                            <OrganizationItem organization={organization} key={i} />
+                        ))}
+                    </div>
+                </div>
+                <div className="col-span-4 bg-indigo-100 rounded-md overflow-hidden">
+                    <Map 
+                        
                     />
                 </div>
-                <div className="py-2">
-                    {data?.getOrganizations.map((organization, i) => (
-                        <OrganizationItem organization={organization} key={i} />
-                    ))}
-                </div>
-            </div>
-            <div className="col-span-4 bg-indigo-100 rounded-md overflow-hidden">
-                <Map 
-                    
-                />
             </div>
         </div>
     )
@@ -97,11 +99,8 @@ const DirectoryPage: NextPage = () => {
 
     return (
         <LayoutWithoutAuth>
-            <div className={styles.container} style={{ paddingTop: "2rem" }}>
-                <div>
-                    <h2 className="text-2xl font-bold">Directory</h2>
-                    <DirectoryContainer />
-                </div>
+            <div className={styles.container} style={{ paddingTop: "1rem" }}>
+                <DirectoryContainer />
             </div>
         </LayoutWithoutAuth>
     )
