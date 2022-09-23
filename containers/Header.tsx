@@ -21,20 +21,24 @@ export const Header: FunctionComponent = () => {
                     <div className="w-[180px] h-fit overflow-hidden">
                         <Image src={logo} layout="responsive" />
                     </div>
-                    {!loading && account ? (
-                        <ul className="flex-1 flex justify-end gap-4 font-semibold">
-                            <li><Link href="/"><a className="text-white">Directory</a></Link></li>
-                            <li><Link href="/requests"><a className="text-white">Requests</a></Link> </li>
-                            {/*<li><Link href="/pledges"><a className="text-white">Pledges</a></Link> </li>*/}
-                            {/*<li><Link href="/team"><a className="text-white">Team</a></Link> </li>*/}
-                            <li><Link href="/organization"><a className="text-white">My Organization</a></Link> </li>
-                            <li><Link href="/auth/signout"><a className="text-white">Sign Out</a></Link> </li>
-                        </ul>
-                    ) : (
-                        <ul className="flex-1 flex justify-end gap-4 font-semibold">
-                            <li><Link href="/"><a className="text-white">Directory</a></Link></li>
-                            <li><Link href="/auth/signin"><a className="text-yellow-400">Are you an Aid Organization?</a></Link></li>
-                        </ul>
+                    {!loading ?
+                        (account ? (
+                            <ul className="flex-1 flex justify-end gap-4 font-semibold">
+                                <li><Link href="/"><a className="text-white">Directory</a></Link></li>
+                                <li><Link href="/requests"><a className="text-white">Requests</a></Link> </li>
+                                {/*<li><Link href="/pledges"><a className="text-white">Pledges</a></Link> </li>*/}
+                                {/*<li><Link href="/team"><a className="text-white">Team</a></Link> </li>*/}
+                                <li><Link href="/organization"><a className="text-white">My Organization</a></Link> </li>
+                                <li><Link href="/auth/signout"><a className="text-white">Sign Out</a></Link> </li>
+                            </ul>
+                        ) : (
+                            <ul className="flex-1 flex justify-end gap-4 font-semibold">
+                                <li><Link href="/"><a className="text-white">Directory</a></Link></li>
+                                <li><Link href="/auth/signin"><a className="text-yellow-400">Are you an Aid Organization?</a></Link></li>
+                            </ul>
+                        )):
+                    (
+                        null
                     )}
                 </div>
             </div>

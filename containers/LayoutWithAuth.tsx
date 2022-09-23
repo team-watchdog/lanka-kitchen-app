@@ -39,7 +39,6 @@ const LayoutWithAuth: FunctionComponent<LayoutWithAuthProps> = ({ children }) =>
 
     return (
         <ApolloProvider client={client}>
-            <Header />
             <div>
                 {children}
             </div>
