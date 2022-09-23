@@ -41,7 +41,6 @@ const LayoutWithoutAuth: FunctionComponent<LayoutWithoutAuthProps> = ({ children
 
     return (
         <ApolloProvider client={client}>
-            <Header />
             <div>
                 {children}
             </div>
