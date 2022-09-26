@@ -36,7 +36,7 @@ export const useAuth = () => {
         } else {
             setLoading(false);
         }
-    }, []);
+    }, [token]);
 
     if (!token || !account) {
         return {

@@ -1,6 +1,9 @@
 import { FunctionComponent, useState, useRef, useEffect } from "react";
-import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+
+// types
+import { GeoJSONPoint } from "../../types/geo.types";
 
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -8,7 +11,14 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // constants
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ? process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN : "";
 
-const Map: FunctionComponent = () => {
+interface MapProps{
+    boundingBox?: [number, number, number, number];
+    markers: GeoJSONPoint[];
+}
+
+const Map: FunctionComponent<MapProps> = (props) => {
+    const { markers, boundingBox } = props;
+
     const mapContainer = useRef(null);
     const map = useRef<unknown>(null);
     const [lng, setLng] = useState(-70.9);
@@ -22,8 +32,12 @@ const Map: FunctionComponent = () => {
         const tmpMap = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
+            bounds: boundingBox,
             zoom: zoom
+        });
+
+        const marker = new mapboxgl.Marker({
+            color: '#F84C4C' // color it red
         });
 
         const geocoder = new MapboxGeocoder({
@@ -50,6 +64,15 @@ const Map: FunctionComponent = () => {
                 marker: false,
             })
         , 'top-right');
+
+
+        // Add markers to the map.
+        for (const marker of markers) {
+            // Add markers to the map.
+            new mapboxgl.Marker()
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(tmpMap);
+        }
         
         map.current = tmpMap;
     });
