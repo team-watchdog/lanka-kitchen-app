@@ -34,7 +34,7 @@ export const Header: FunctionComponent = () => {
                         ) : (
                             <ul className="flex-1 flex justify-end gap-4 font-semibold">
                                 <li><Link href="/"><a className="text-white">Directory</a></Link></li>
-                                <li><Link href="/auth/signin"><a className="text-yellow-400">Are you an Aid Organization?</a></Link></li>
+                                <li><Link href="/auth/signin"><a className="text-yellow-400">Organization Sign In</a></Link></li>
                             </ul>
                         )):
                     (
