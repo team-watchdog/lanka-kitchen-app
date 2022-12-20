@@ -67,10 +67,11 @@ const Queries = {
 
 interface FullOrganizationProps{
     organizationId: number;
+    editAccess?: boolean;
 }
 
 const FullOrganization: FunctionComponent<FullOrganizationProps> = (props: FullOrganizationProps) => {
-    const { organizationId } = props;
+    const { organizationId, editAccess } = props;
 
     const { push } = useRouter();
 
@@ -228,11 +229,13 @@ const FullOrganization: FunctionComponent<FullOrganizationProps> = (props: FullO
                             ))}
                         </div>
                     </div>
-                    <div>
-                        <Button type="default" onMouseDown={() => {
-                            push("/organization/edit");
-                        }}>Edit</Button>
-                    </div>
+                    {editAccess ? (
+                        <div>
+                            <Button type="default" onMouseDown={() => {
+                                push("/organization/edit");
+                            }}>Edit</Button>
+                        </div>
+                    ) : null}
                 </div>
                 <div className="py-2 px-2 mt-4">
                     <Tabs 
@@ -243,7 +246,12 @@ const FullOrganization: FunctionComponent<FullOrganizationProps> = (props: FullO
                             },
                             {
                                 title: "Requests",
-                                component: <Requests organizationId={parseInt(`${organizationId}`)} />
+                                component: (
+                                    <Requests 
+                                        organizationId={parseInt(`${organizationId}`)} 
+                                        editAccess={editAccess}
+                                    />
+                                )
                             },
                             /*
                             {

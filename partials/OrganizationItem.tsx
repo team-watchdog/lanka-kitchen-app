@@ -14,7 +14,7 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
     const [ open, setOpen ] = useState(false);
 
     return (
-        <div className="py-4 px-4 mb-1 divide-y-1 divide-y-gray-400 hover:bg-white rounded-md">
+        <div className="py-4 mb-1 divide-y-1 divide-y-gray-400 hover:bg-slate-300 border-b border-b-gray-200">
             <div className="flex justify-between">
                 <div>
                     <h3 className="text-md font-semibold">{organization.name}</h3>
@@ -56,7 +56,7 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
                         </div>
                     ) : null}
                     <div className="pt-4">
-                        <Link href={""}><a className="font-semibold">Learn More</a></Link>
+                        <Link href={`/organization/${organization.id}`}><a className="font-semibold">Learn More</a></Link>
                     </div>
                 </div>
             ) : null}

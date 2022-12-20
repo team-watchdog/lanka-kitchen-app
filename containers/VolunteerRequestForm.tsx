@@ -44,7 +44,7 @@ export const VolunteerRequestForm: FunctionComponent<VolunteerRequestFormProps> 
     let inputStyles = ["flex-1 px-3 py-2 border rounded-md"];
     const initialValues = request ? request : {} as VolunteerRequestInput;
 
-    const { data, loading } = useQuery(OrganizationQueries.GET_ORGANIZATION);
+    const { data, loading } = useQuery(OrganizationQueries.GET_MY_ORGANIZATION);
     const [ createVolunteerRequest, { loading: submitting }] = useMutation<VolunteerRequestInput>(Queries.CREATE_VOLUNTEER_REQUEST);
     const [ updateVolunteerRequest, { loading: updating }] = useMutation<{ id: number, data: VolunteerRequestInput}>(Queries.UPDATE_VOLUNTEER_REQUEST);
 
@@ -133,10 +133,10 @@ export const VolunteerRequestForm: FunctionComponent<VolunteerRequestFormProps> 
                                 label: "General",
                                 value: null,
                             },
-                            ...data.me.organization.locations.map((location: Location) => ({
+                            ...data?.me?.organization.locations.map((location: Location) => ({
                                 label: location.formattedAddress,
                                 value: location.placeId,
-                            }))
+                            })) ?? []
                         ]}
                     />
                 </FormItem>

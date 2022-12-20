@@ -17,15 +17,16 @@ import { Header } from "./Header";
 import 'react-toastify/dist/ReactToastify.css';
 
 interface LayoutWithoutAuthProps{
+    noRedirect?: boolean;
     children: ReactNode | ReactNode[];
 }
 
-const LayoutWithoutAuth: FunctionComponent<LayoutWithoutAuthProps> = ({ children }) => {
+const LayoutWithoutAuth: FunctionComponent<LayoutWithoutAuthProps> = ({ noRedirect, children }) => {
     const { account, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-        if (account) router.push("/");
+        if (account && !noRedirect) router.push("/");
     }, [ account ]);
 
     const client = new ApolloClient({

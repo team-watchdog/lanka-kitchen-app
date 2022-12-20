@@ -28,14 +28,12 @@ import { OrganizationQueries } from "../queries/organization.queries";
 
 const Queries = {
     GET_ORGANIZATION: gql`
-        query GetOrganization{
-            me{
-                organization{
-                    id
-                    locations{
-                        placeId
-                        formattedAddress
-                    }
+        query GetOrganization($id: Int!) {
+            getOrganization(id: $id) {
+                id
+                locations{
+                    placeId
+                    formattedAddress
                 }
             }
         }
@@ -71,6 +69,7 @@ const Queries = {
 
 interface RequestsProps{
     organizationId: number;
+    editAccess?: boolean;
 }
 
 interface RequestResponse{
@@ -78,13 +77,17 @@ interface RequestResponse{
 }
 
 const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
-    const { organizationId } = props;
+    const { organizationId, editAccess } = props;
 
     const [ searchTerm, setSearchTerm ] = useState<string>("");
     const [ placeId, setPlaceId ] = useState<string | null>(null);
     const [ showFulfilledRequests, setshowFulfilledRequests ] = useState(false);
 
-    const { data: organizationData, loading: loadingOrganization } = useQuery(OrganizationQueries.GET_ORGANIZATION);
+    const { data: organizationData, loading: loadingOrganization } = useQuery(OrganizationQueries.GET_ORGANIZATION, {
+        variables: {
+            id: organizationId,
+        },
+    });
     const { data, loading: loadingRequests, refetch } = useQuery<RequestResponse>(Queries.GET_REQUESTS, {
         variables: {
             id: organizationId,
@@ -115,7 +118,10 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
         let match = true;
     
         match = request.title.toLowerCase().includes(searchTerm.toLowerCase()) || request.description.toLowerCase().includes(searchTerm.toLowerCase());
-        if (placeId) match = match && request.placeId === placeId;
+        
+        if (placeId) {
+            match = match && request.placeId === placeId;
+        }
 
         return match;
     }) ?? [];
@@ -142,14 +148,18 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
                             }} 
                         />
                     </div>
-                    <Button type="primary" onMouseDown={() => {
-                        setShowItemRequest(true);
-                    }}><PlusSmIcon className="w-6 h-6" /> Item Request</Button>
-                    <Button type="default" onMouseDown={() => {
-                        setShowVolunteerRequest(true);
-                    }}>
-                        <HandIcon className="w-6 h-6" /> Volunteer Request
-                    </Button>
+                    {editAccess ? (
+                        <>
+                            <Button type="primary" onMouseDown={() => {
+                                setShowItemRequest(true);
+                            }}><PlusSmIcon className="w-6 h-6" /> Item Request</Button>
+                            <Button type="default" onMouseDown={() => {
+                                setShowVolunteerRequest(true);
+                            }}>
+                                <HandIcon className="w-6 h-6" /> Volunteer Request
+                            </Button>
+                        </>
+                    ) : null}
                 </div>
             </div>
             <div className="py-4 grid grid-cols-5 gap-2">
@@ -169,10 +179,10 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
                                 label: "General",
                                 value: null,
                             },
-                            ...organizationData.me.organization.locations.map((location: Location) => ({
+                            ...organizationData.getOrganization.locations.map((location: Location) => ({
                                 label: location.formattedAddress,
                                 value: location.placeId,
-                            }))
+                            })),
                         ]}
                         value={placeId}
                         onChange={(value) => {
@@ -188,6 +198,7 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
                         {rationItems?.map((request: Request, i) => (
                             <RequestItem 
                                 key={i} 
+                                editAccess={editAccess}
                                 request={request} 
                                 locations={organizationData?.me?.organization?.locations ?? []}
                                 refetch={refetch}
@@ -202,7 +213,8 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
                             <RequestItem 
                                 key={i} 
                                 request={request} 
-                                locations={organizationData?.me?.organization?.locations ?? []}
+                                editAccess={editAccess}
+                                locations={organizationData?.getOrganization?.locations ?? []}
                                 refetch={() => {
                                     refetch({
                                         id: organizationId,
@@ -220,7 +232,8 @@ const Requests: FunctionComponent<RequestsProps> = (props: RequestsProps) => {
                             <VolunteerRequestItem 
                                 key={i}
                                 request={request}
-                                locations={organizationData?.me?.organization?.locations ?? []}
+                                locations={organizationData?.getOrganization?.locations ?? []}
+                                editAccess={editAccess}
                                 refetch={() => {
                                     refetchVolunteerRequests({
                                         id: organizationId,

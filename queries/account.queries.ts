@@ -10,6 +10,9 @@ export const AccountQueries = {
                 email
                 userRoles
                 permissions
+                organization {
+                    id
+                }
             }
         }
     `,

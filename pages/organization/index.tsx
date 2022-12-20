@@ -20,7 +20,9 @@ const Queries = {
 
 const PageWithContext: FunctionComponent = () => {
     const { data } = useQuery(Queries.GET_ORGANIZATION_DETAILS);
-    return data?.me?.organization ? <FullOrganization organizationId={data.me.organization.id} /> : null;
+    return data?.me?.organization ? (
+        <FullOrganization organizationId={data.me.organization.id} editAccess={true} />
+    ): null;
 }
 
 const OrganizationPage: NextPage = () => {

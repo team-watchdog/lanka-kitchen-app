@@ -10,6 +10,7 @@ import { AccountQueries } from "../queries/account.queries";
 
 export const useAuth = () => {
     const [account, setAccount] = useState<Partial<Account> | null>(null);
+    const [ organizationId, setOrganizationId ] = useState<number | null>(null);
     const [loading, setLoading] = useState(true);
 
     const token = getTokenCookie();
@@ -22,6 +23,7 @@ export const useAuth = () => {
                 query: AccountQueries.getMe,
             });
             
+            setOrganizationId(resp.data.me.organization.id);
             setAccount(resp.data.me);
             setLoading(false);
         } catch (e) {
@@ -42,6 +44,7 @@ export const useAuth = () => {
         return {
             token: null,
             account: null,
+            organizationId,
             loading,
         }
     }
@@ -49,5 +52,6 @@ export const useAuth = () => {
     return {
         token,
         account,
+        organizationId,
     };
 }

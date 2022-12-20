@@ -30,6 +30,7 @@ const Queries = {
                 id
                 itemName
                 unit
+                placeId
                 quantity
                 status
                 requestType
@@ -52,7 +53,7 @@ const Queries = {
 export const RequestForm: FunctionComponent<RequestFormProps> = (props) => {
     const { request, onSuccess } = props;
 
-    const { data, loading } = useQuery(OrganizationQueries.GET_ORGANIZATION);
+    const { data, loading } = useQuery(OrganizationQueries.GET_MY_ORGANIZATION);
     const [ createRequest, { loading: submitting }] = useMutation(Queries.CREATE_REQUEST);
     const [ updateRequest, { loading: updating }] = useMutation(Queries.UPDATE_REQUEST);
 
