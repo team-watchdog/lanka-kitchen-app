@@ -14,7 +14,7 @@ import { InputText } from "../../components/Input";
 import LayoutWithoutAuth from "../../containers/LayoutWithoutAuth";
 
 // localized
-import { getLocalizedString } from "../../localize";
+import { useLocale } from "../../localize";
 
 // queries or mutations
 import { AuthMutations } from "../../queries/auth.queries";
@@ -31,14 +31,15 @@ const SignIn: NextPage = () => {
     const lang = "en";
 
     const router = useRouter();
+    const { getLocalizedString } = useLocale();
     const [ signIn, { loading: submitting }] = useMutation(AuthMutations.signIn);
 
     return (
         <div>
             <div className="container max-w-screen-md m-auto">
                 <div className="py-8">
-                    <h3 className="text-2xl font-bold">{getLocalizedString("SignInHeading", lang)}</h3>
-                    <p className="py-2">{getLocalizedString("SignInDescription", lang)}</p>
+                    <h3 className="text-2xl font-bold">{getLocalizedString("SignInHeading")}</h3>
+                    <p className="py-2">{getLocalizedString("SignInDescription")}</p>
                 </div>
                 <div>
                     <Formik
@@ -67,15 +68,15 @@ const SignIn: NextPage = () => {
                         }}
                         validate={(values) => {
                             const errors: FormikErrors<SignInForm> = {};
-                            if (!values.email) errors.email = getLocalizedString("SignInEmailRequired", lang);
-                            if (!values.password) errors.password = getLocalizedString("SignInPasswordRequired", lang);
+                            if (!values.email) errors.email = getLocalizedString("SignInEmailRequired");
+                            if (!values.password) errors.password = getLocalizedString("SignInPasswordRequired");
                             return errors;
                         }}
                     >
                         {({ values, errors, setFieldValue, submitForm }) => (
                             <div>
                                 <FormItem
-                                    label={getLocalizedString("FieldsEmail", lang)}
+                                    label={getLocalizedString("FieldsEmail")}
                                     help={errors.email ? errors.email : undefined}
                                     status={errors.email ? "error" : undefined}
                                     required
@@ -87,7 +88,7 @@ const SignIn: NextPage = () => {
                                     />
                                 </FormItem>
                                 <FormItem
-                                    label={getLocalizedString("FieldsPassword", lang)}
+                                    label={getLocalizedString("FieldsPassword")}
                                     help={errors.password ? errors.password : undefined}
                                     status={errors.password ? "error" : undefined}
                                     required
@@ -103,14 +104,14 @@ const SignIn: NextPage = () => {
                                         type="primary" 
                                         onMouseDown={() => submitForm()}
                                         loading={submitting}
-                                    >{getLocalizedString("SignInText", lang)}</Button>
+                                    >{getLocalizedString("SignInText")}</Button>
                                 </div>
                                 <div className="py-4">
                                     <div className="mb-1">
-                                        <Link href="/auth/forgot-password"><a>{getLocalizedString("ForgotPassword", lang)}</a></Link>
+                                        <Link href="/auth/forgot-password"><a>{getLocalizedString("ForgotPassword")}</a></Link>
                                     </div>
                                     <div>
-                                        {getLocalizedString("DontHaveAnAccountText", lang)} <Link href="/auth/signup"><a>{getLocalizedString("SignUpText", lang)}</a></Link>
+                                        {getLocalizedString("DontHaveAnAccountText")} <Link href="/auth/signup"><a>{getLocalizedString("SignUpText")}</a></Link>
                                     </div>
                                 </div>
                             </div>

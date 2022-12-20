@@ -5,9 +5,12 @@ import Image from "next/image";
 import { useAuth } from "../lib/auth";
 
 // assets
-import logo from '../public/logo.svg';
+import logo from '../public/logo.png';
 
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
+
+// components
+import { LanguageSelector } from "./LanguageSelector";
 
 export const Header: FunctionComponent = () => {
     const { account, loading } = useAuth();
@@ -18,12 +21,13 @@ export const Header: FunctionComponent = () => {
         >
             <div className={styles.container} style={{ width: "100%" }}>
                 <div className="py-2 flex w-full justify-between items-center">
-                    <div className="w-[180px] h-fit overflow-hidden">
-                        <Image src={logo} layout="responsive" />
+                    <div className="w-[160px] h-fit overflow-hidden">
+                        <a className="cursor-pointer"><Link href="/"><Image src={logo} layout="responsive" /></Link></a>
                     </div>
                     {!loading ?
                         (account ? (
-                            <ul className="flex-1 flex justify-end gap-4 font-semibold">
+                            <ul className="flex-1 flex justify-end gap-4 font-semibold items-center">
+                                <LanguageSelector />
                                 <li><Link href="/"><a className="text-white">Directory</a></Link></li>
                                 <li><Link href="/requests"><a className="text-white">Requests</a></Link> </li>
                                 {/*<li><Link href="/pledges"><a className="text-white">Pledges</a></Link> </li>*/}
@@ -32,7 +36,8 @@ export const Header: FunctionComponent = () => {
                                 <li><Link href="/auth/signout"><a className="text-white">Sign Out</a></Link> </li>
                             </ul>
                         ) : (
-                            <ul className="flex-1 flex justify-end gap-4 font-semibold">
+                            <ul className="flex-1 flex justify-end gap-4 font-semibold items-center">
+                                <LanguageSelector />
                                 <li><Link href="/"><a className="text-white">Directory</a></Link></li>
                                 <li><Link href="/auth/signin"><a className="text-yellow-400">Organization Sign In</a></Link></li>
                             </ul>

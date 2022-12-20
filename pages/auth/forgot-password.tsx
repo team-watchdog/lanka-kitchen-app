@@ -15,7 +15,7 @@ import { InputText } from "../../components/Input";
 import { AuthMutations } from "../../queries/auth.queries";
 
 // localized
-import { getLocalizedString } from "../../localize";
+import { useLocale } from "../../localize";
 
 
 interface ForgotPasswordInput{
@@ -23,15 +23,14 @@ interface ForgotPasswordInput{
 }
 
 const ForgotPassword: NextPage = () => {
-    const lang = "en";
-
+    const { getLocalizedString } = useLocale();
     const [ forgotPassword, { loading: submitting }] = useMutation(AuthMutations.forgotPassword);
 
     return (
         <div>
             <div className="container max-w-screen-md m-auto">
                 <div className="py-8">
-                    <h3 className="text-2xl font-bold">{getLocalizedString("ForgotPasswordHeading", lang)}</h3>
+                    <h3 className="text-2xl font-bold">{getLocalizedString("ForgotPasswordHeading")}</h3>
                 </div>
                 <div>
                     <Formik
@@ -55,7 +54,7 @@ const ForgotPassword: NextPage = () => {
                         validate={(values) => {
                             const errors: FormikErrors<ForgotPasswordInput> = {};
                             if (!values.email) {
-                                errors.email = getLocalizedString("ForgotPasswordEmailRequired", lang);
+                                errors.email = getLocalizedString("ForgotPasswordEmailRequired");
                             }
                             return errors;
                         }}
@@ -63,7 +62,7 @@ const ForgotPassword: NextPage = () => {
                         {({ values, errors, setFieldValue, submitForm }) => (
                             <div>
                                 <FormItem
-                                    label={getLocalizedString("FieldsEmail", lang)}
+                                    label={getLocalizedString("FieldsEmail")}
                                     help={errors.email ? errors.email : undefined}
                                     status={errors.email ? "error" : undefined}
                                     required
@@ -79,11 +78,11 @@ const ForgotPassword: NextPage = () => {
                                         type="primary" 
                                         onMouseDown={() => submitForm()}
                                         loading={submitting}
-                                    >{getLocalizedString("ResetPasswordText", lang)}</Button>
+                                    >{getLocalizedString("ResetPasswordText")}</Button>
                                 </div>
                                 <div className="py-4">
                                     <div>
-                                        {getLocalizedString("AlreadyHaveAnAccountText", lang)} <Link href="/auth/signin"><a>{getLocalizedString("SignInText", lang)}</a></Link>
+                                        {getLocalizedString("AlreadyHaveAnAccountText")} <Link href="/auth/signin"><a>{getLocalizedString("SignInText")}</a></Link>
                                     </div>
                                 </div>
                             </div>

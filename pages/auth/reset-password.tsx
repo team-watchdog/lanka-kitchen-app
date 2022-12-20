@@ -13,7 +13,7 @@ import Button from "../../components/Button";
 import { InputText } from "../../components/Input";
 
 // localized
-import { getLocalizedString } from "../../localize";
+import { useLocale } from "../../localize";
 
 // queries and mutations
 import { AuthMutations } from "../../queries/auth.queries";
@@ -34,6 +34,7 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
     const lang = "en";
 
     const router = useRouter();
+    const { getLocalizedString } = useLocale();
 
     const [ resetPassword, { loading: submitting }] = useMutation(AuthMutations.resetPassword);
 
@@ -41,7 +42,7 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
         <div>
             <div className="container max-w-screen-md m-auto">
                 <div className="py-8">
-                    <h3 className="text-2xl font-bold">{getLocalizedString("ResetPasswordHeading", lang)}</h3>
+                    <h3 className="text-2xl font-bold">{getLocalizedString("ResetPasswordHeading")}</h3>
                 </div>
                 <div>
                     <Formik
@@ -71,13 +72,13 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
                         validate={(values) => {
                             const errors: FormikErrors<ResetPasswordInput> = {};
                             if (!values.password) {
-                                errors.password = getLocalizedString("ResetPasswordPasswordMinimumLength", lang);
+                                errors.password = getLocalizedString("ResetPasswordPasswordMinimumLength");
                             } else if (values.password.length < 6) {
-                                errors.password = getLocalizedString("ResetPasswordPasswordMinimumLength", lang);
+                                errors.password = getLocalizedString("ResetPasswordPasswordMinimumLength");
                             }
 
                             if (!values.confirmPassword || values.confirmPassword !== values.password) {
-                                errors.confirmPassword = getLocalizedString("ResetPasswordPasswordMismatch", lang);
+                                errors.confirmPassword = getLocalizedString("ResetPasswordPasswordMismatch");
                             }
 
                             return errors;
@@ -86,7 +87,7 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
                         {({ values, errors, setFieldValue, submitForm }) => (
                             <div>
                                 <FormItem
-                                    label={getLocalizedString("FieldsPassword", lang)}
+                                    label={getLocalizedString("FieldsPassword")}
                                     required
                                     help={errors.password}
                                     status={errors.password ? "error" : undefined}
@@ -98,7 +99,7 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
                                     />
                                 </FormItem>
                                 <FormItem
-                                    label={getLocalizedString("FieldsPasswordConfirm", lang)}
+                                    label={getLocalizedString("FieldsPasswordConfirm")}
                                     required
                                     help={errors.confirmPassword}
                                     status={errors.confirmPassword ? "error" : undefined}
@@ -116,11 +117,11 @@ const ResetPassword: NextPage<ResetPasswordProps> = ({ accountId, resetCode }) =
                                         onMouseDown={() => {
                                             submitForm();
                                         }}
-                                    >{getLocalizedString("ResetPasswordText", lang)}</Button>
+                                    >{getLocalizedString("ResetPasswordText")}</Button>
                                 </div>
                                 <div className="py-4">
                                     <div>
-                                        {getLocalizedString("AlreadyHaveAnAccountText", lang)} <Link href="/auth/signin"><a>{getLocalizedString("SignInText", lang)}</a></Link>
+                                        {getLocalizedString("AlreadyHaveAnAccountText")} <Link href="/auth/signin"><a>{getLocalizedString("SignInText")}</a></Link>
                                     </div>
                                 </div>
                             </div>
