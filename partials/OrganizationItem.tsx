@@ -16,7 +16,7 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
         <div className="py-4 pr-2 mb-1 divide-y-1 divide-y-gray-400 hover:bg-slate-300 border-b border-b-gray-200">
             <div className="flex justify-between">
                 <div>
-                    <h3 className="text-md font-semibold">
+                    <h3 className="text-lg font-semibold">
                         <Link href={`/organization/${organization.id}`}>{organization.name}</Link>
                     </h3>
                     <a href="" className="flex items-center"><LocationMarkerIcon className="w-4 h-4 font-bold mr-2"/> Multiple Locations</a>

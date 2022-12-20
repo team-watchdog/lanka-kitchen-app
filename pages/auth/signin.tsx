@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMutation, ApolloError } from "@apollo/client";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 
 // components
 import { FormItem } from "../../components/Form";
@@ -14,7 +15,7 @@ import { InputText } from "../../components/Input";
 import LayoutWithoutAuth from "../../containers/LayoutWithoutAuth";
 
 // localized
-import { useLocale } from "../../localize";
+import { retrieveLocalizedString, LanguageContext } from "../../localize";
 
 // queries or mutations
 import { AuthMutations } from "../../queries/auth.queries";
@@ -28,18 +29,16 @@ interface SignInForm{
 }
 
 const SignIn: NextPage = () => {
-    const lang = "en";
-
     const router = useRouter();
-    const { getLocalizedString } = useLocale();
+    const { language } = useContext(LanguageContext);
     const [ signIn, { loading: submitting }] = useMutation(AuthMutations.signIn);
 
     return (
         <div>
             <div className="container max-w-screen-md m-auto">
                 <div className="py-8">
-                    <h3 className="text-2xl font-bold">{getLocalizedString("SignInHeading")}</h3>
-                    <p className="py-2">{getLocalizedString("SignInDescription")}</p>
+                    <h3 className="text-2xl font-bold">{retrieveLocalizedString(language, "SignInHeading")}</h3>
+                    <p className="py-2">{retrieveLocalizedString(language, "SignInDescription")}</p>
                 </div>
                 <div>
                     <Formik
@@ -68,15 +67,15 @@ const SignIn: NextPage = () => {
                         }}
                         validate={(values) => {
                             const errors: FormikErrors<SignInForm> = {};
-                            if (!values.email) errors.email = getLocalizedString("SignInEmailRequired");
-                            if (!values.password) errors.password = getLocalizedString("SignInPasswordRequired");
+                            if (!values.email) errors.email = retrieveLocalizedString(language, "SignInEmailRequired");
+                            if (!values.password) errors.password = retrieveLocalizedString(language, "SignInPasswordRequired");
                             return errors;
                         }}
                     >
                         {({ values, errors, setFieldValue, submitForm }) => (
                             <div>
                                 <FormItem
-                                    label={getLocalizedString("FieldsEmail")}
+                                    label={retrieveLocalizedString(language, "FieldsEmail")}
                                     help={errors.email ? errors.email : undefined}
                                     status={errors.email ? "error" : undefined}
                                     required
@@ -88,7 +87,7 @@ const SignIn: NextPage = () => {
                                     />
                                 </FormItem>
                                 <FormItem
-                                    label={getLocalizedString("FieldsPassword")}
+                                    label={retrieveLocalizedString(language, "FieldsPassword")}
                                     help={errors.password ? errors.password : undefined}
                                     status={errors.password ? "error" : undefined}
                                     required
@@ -104,14 +103,14 @@ const SignIn: NextPage = () => {
                                         type="primary" 
                                         onMouseDown={() => submitForm()}
                                         loading={submitting}
-                                    >{getLocalizedString("SignInText")}</Button>
+                                    >{retrieveLocalizedString(language, "SignInText")}</Button>
                                 </div>
                                 <div className="py-4">
                                     <div className="mb-1">
-                                        <Link href="/auth/forgot-password"><a>{getLocalizedString("ForgotPassword")}</a></Link>
+                                        <Link href="/auth/forgot-password"><a>{retrieveLocalizedString(language, "ForgotPassword")}</a></Link>
                                     </div>
                                     <div>
-                                        {getLocalizedString("DontHaveAnAccountText")} <Link href="/auth/signup"><a>{getLocalizedString("SignUpText")}</a></Link>
+                                        {retrieveLocalizedString(language, "DontHaveAnAccountText")} <Link href="/auth/signup"><a>{retrieveLocalizedString(language, "SignUpText")}</a></Link>
                                     </div>
                                 </div>
                             </div>
