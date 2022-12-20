@@ -11,7 +11,9 @@ const nextConfig = {
       $handle-color: #666666;
     `,
   },
-  reactStrictMode: false,
+  images: {
+    domains: ['lanka-kitchen.s3.amazonaws.com', 's3.amazonaws.com']
+  }
 }
 
 module.exports = nextConfig

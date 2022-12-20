@@ -106,7 +106,12 @@ const OrganizationDetailsForm: FunctionComponent = () => {
                 />
             </FormItem>
             <FormItem label="Organization Logo">
-                <ImageCropper />
+                <ImageCropper 
+                    folderName="logos"
+                    onFileUpload={(fileUrl, fileName) => {
+                        setFieldValue("profileImageUrl", fileUrl);
+                    }}
+                />
             </FormItem>
             <FormItem label="Summary" required>
                 <textarea 

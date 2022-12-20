@@ -192,8 +192,8 @@ const FullOrganization: FunctionComponent<FullOrganizationProps> = (props: FullO
                 <div className="p-4 bg-slate-100 rounded-md flex gap-6">
                     <div className="h-[80px] w-[80px] rounded-[40px] overflow-hidden">
                         <Image
-                            src="/sarvodaya-logo.png"
-                            alt="Picture of the author"
+                            src={data.getOrganization.profileImageUrl ?? "/images/placeholder.png"}
+                            alt="Logo Image"
                             width={400}
                             height={400}
                         />
