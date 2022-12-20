@@ -2,7 +2,6 @@ import type { AppProps } from 'next/app'
 
 // styles
 import '../styles/globals.css';
-import '../styles/variables.module.scss';
 
 import { Header } from '../containers/Header';
 import HeadMeta from '../partials/HeadMeta';
