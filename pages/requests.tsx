@@ -25,13 +25,12 @@ const Queries = {
 const RequestWrapperContainer: FunctionComponent = () => {
   const { data, loading } = useQuery(Queries.GET_ORGANIZATION_DETAILS);
 
-  console.log(data);
-
   return (
     <div>
       {loading ? <Loading /> : (
         <Requests
           organizationId={parseInt((data?.me?.organization?.id as unknown) as string)}
+          editAccess={true}
         />
       )}
     </div>

@@ -32,11 +32,12 @@ const Queries = {
 interface RequestItemProps{
     request: Request;
     locations: Location[];
+    editAccess?: boolean;
     refetch?: () => void;
 }
 
 export const RequestItem: FunctionComponent<RequestItemProps> = (props) => {
-    const { request, locations, refetch } = props;
+    const { request, locations, editAccess, refetch } = props;
 
     const [ fulfillRequest, { loading: fulfilling }] = useMutation<{ id: number }>(Queries.FULFILL_REQUEST);
     const [ deleteRequest, { loading: deleting }] = useMutation<{ id: number }>(Queries.DELETE_REQUEST);
@@ -116,13 +117,15 @@ export const RequestItem: FunctionComponent<RequestItemProps> = (props) => {
                 />
             ) : (
                 <div>
-                    <div>
-                        <Button type="default" onMouseDown={() => {
-                            setEditMode(true);
-                        }}>
-                            <PencilIcon className="text-white w-4 h-4" />Edit
-                        </Button>
-                    </div>
+                    {editAccess ? (
+                        <div>
+                            <Button type="default" onMouseDown={() => {
+                                setEditMode(true);
+                            }}>
+                                <PencilIcon className="text-white w-4 h-4" />Edit
+                            </Button>
+                        </div>
+                    ) : null}
                     <div className="pt-4">
                         <SummaryLine label="Item">
                             {request.itemName}
@@ -146,20 +149,22 @@ export const RequestItem: FunctionComponent<RequestItemProps> = (props) => {
                             {moment(request.updatedAt).format()}
                         </SummaryLine>
                     </div>
-                    <div className="flex gap-1">
-                        <Button 
-                            type="secondary" 
-                            onMouseDown={onFulfillRequest}
-                            loading={fulfilling}
-                        >
-                            <CheckIcon className="text-white w-4 h-4" /> Fullfilled
-                        </Button>
-                        <Button type="danger" loading={deleting} onMouseDown={() => {
-                            onDeleteRequest();
-                        }}>
-                            <TrashIcon className="text-white w-4 h-4" /> Delete
-                        </Button>
-                    </div>
+                    {editAccess ? (
+                        <div className="flex gap-1">
+                            <Button 
+                                type="secondary" 
+                                onMouseDown={onFulfillRequest}
+                                loading={fulfilling}
+                            >
+                                <CheckIcon className="text-white w-4 h-4" /> Fullfilled
+                            </Button>
+                            <Button type="danger" loading={deleting} onMouseDown={() => {
+                                onDeleteRequest();
+                            }}>
+                                <TrashIcon className="text-white w-4 h-4" /> Delete
+                            </Button>
+                        </div>
+                    ) : null}
                 </div>
             )}
         </Modal>

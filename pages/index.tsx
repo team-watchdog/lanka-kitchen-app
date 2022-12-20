@@ -1,13 +1,10 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { gql, useQuery } from "@apollo/client";
-import { SearchIcon, LibraryIcon } from "@heroicons/react/solid";
+import { LibraryIcon } from "@heroicons/react/solid";
 
 // containers
 import LayoutWithoutAuth from "../containers/LayoutWithoutAuth";
-
-// components
-import { InputText } from "../components/Input";
 
 // partials
 import { OrganizationItem } from "../partials/OrganizationItem";
@@ -21,6 +18,8 @@ import { FunctionComponent } from "react";
 import { GeoJSONPoint } from "../types/geo.types";
 import Button from "../components/Button";
 
+// helpers
+import { useAuth } from "../lib/auth";
 
 interface GetOrganizationData{
     getOrganizations: Organization[];
@@ -69,6 +68,7 @@ const Queries = {
 const DirectoryContainer: FunctionComponent = () => {
     const { data, loading } = useQuery<{ getOrganizations: Organization[]}>(Queries.GET_ORGANIZATIONS);
     const { push } = useRouter();
+    const { account } = useAuth();
 
     if (loading) return <Loading />;
 
@@ -93,35 +93,39 @@ const DirectoryContainer: FunctionComponent = () => {
         }
     }
 
-    console.log(markers);
-
     return (
         <div className="h-screen flex-row pb-4">
-            <div className="flex">
-                <div className="py-8 max-w-2xl">
-                    <h1 className="text-3xl font-bold py-4">Connecting aid efforts with the communities they serve</h1>
-                    <p>Watchdog Foodbank project is an effort to help community kitchens, ration support groups, and other mutual aid organizations run their operations more smoothly and garner support from their communities during this time of crisis.</p>
-                    <div className="flex gap-x-2 gap-y-2 py-4 flex-wrap">
-                        <Button type="primary" onMouseDown={() => {}}><SearchIcon className="w-4 h-4"/> Find organizations in your area</Button>
-                        <Button type="default" onMouseDown={() => {
-                            push("/auth/signup")
-                        }}><LibraryIcon className="w-4 h-4" />Register your organization</Button>
+            {!account && (
+                <div className="flex">
+                    <div className="py-8 max-w-2xl">
+                        <h1 className="text-3xl font-bold py-4">Connecting aid efforts with the communities they serve</h1>
+                        <p>Watchdog Foodbank project is an effort to help community kitchens, ration support groups, and other mutual aid organizations run their operations more smoothly and garner support from their communities during this time of crisis.</p>
+                        <div className="flex gap-x-2 gap-y-2 py-4 flex-wrap">
+                            <Button type="default" onMouseDown={() => {
+                                push("/auth/signup")
+                            }}><LibraryIcon className="w-4 h-4" />Register your organization</Button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="flex">
-                <InputText 
-                    placeholder="Search for organizations"
-                    value=""
-                    onChange={(value) => {
-                    }}
-                />
-            </div>
-            <div className="py-4 grid grid-cols-6 gap-2 h-full flex-1">
-                <div className="col-span-2 p-2 bg-slate-50 rounded-md">
-                    <div className="py-2">
+            )}
+            {/*
+                <div className="flex">
+                    <InputText 
+                        placeholder="Search for organizations"
+                        value=""
+                        onChange={(value) => {
+                        }}
+                    />
+                </div> 
+            */}
+            <div className="grid grid-cols-6 gap-2 h-full flex-1">
+                <div className="col-span-2 px-2 overflow-y-scroll">
+                    <div>
                         {data?.getOrganizations.map((organization, i) => (
-                            <OrganizationItem organization={organization} key={i} />
+                            <OrganizationItem 
+                                organization={organization} 
+                                key={i} 
+                            />
                         ))}
                     </div>
                 </div>

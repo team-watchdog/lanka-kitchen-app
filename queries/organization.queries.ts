@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client"
 
 export const OrganizationQueries = {
-    GET_ORGANIZATION: gql`
-        query GetOrganization{
+    GET_MY_ORGANIZATION: gql`
+        query MyOrganization{
             me{
                 organization{
                     id
@@ -10,6 +10,18 @@ export const OrganizationQueries = {
                         placeId
                         formattedAddress
                     }
+                }
+            }
+        }
+    `,
+
+    GET_ORGANIZATION: gql`
+        query GetOrganization($id: Int!) {
+            getOrganization(id: $id) {
+                id
+                locations{
+                    placeId
+                    formattedAddress
                 }
             }
         }
