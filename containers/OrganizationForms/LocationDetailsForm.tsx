@@ -72,10 +72,16 @@ const LocationDetailsForm: FunctionComponent = () => {
                         }
                     },
                 });
+                toast.success("Organization locations updated successfully!");
                 refetch();
             } catch(e) {
-                let parsedErrors = (e as ApolloError).graphQLErrors;
+                let parsedError = e as ApolloError;
+                let parsedErrors = parsedError.graphQLErrors;
                 const messages = parsedErrors.map((err) => err.message);
+
+                if (parsedError && parsedError.message) {
+                    toast.error(parsedError.message);
+                }
                 
                 for (let message of messages) {
                     toast.error(message);

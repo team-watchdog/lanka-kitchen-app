@@ -2,7 +2,6 @@ import { FunctionComponent, useState } from "react";
 import { LocationMarkerIcon, ChevronUpIcon } from "@heroicons/react/solid";
 
 import { Organization } from "../types/organization.type";
-import Button from "../components/Button";
 import Link from "next/link";
 
 interface OrganizationItemProps{
@@ -14,10 +13,12 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
     const [ open, setOpen ] = useState(false);
 
     return (
-        <div className="py-4 mb-1 divide-y-1 divide-y-gray-400 hover:bg-slate-300 border-b border-b-gray-200">
+        <div className="py-4 pr-2 mb-1 divide-y-1 divide-y-gray-400 hover:bg-slate-300 border-b border-b-gray-200">
             <div className="flex justify-between">
                 <div>
-                    <h3 className="text-md font-semibold">{organization.name}</h3>
+                    <h3 className="text-md font-semibold">
+                        <Link href={`/organization/${organization.id}`}>{organization.name}</Link>
+                    </h3>
                     <a href="" className="flex items-center"><LocationMarkerIcon className="w-4 h-4 font-bold mr-2"/> Multiple Locations</a>
                     {organization.assistanceTypes && organization.assistanceTypes.length > 0 ? (
                         <div className="py-2 flex gap-1">
@@ -55,9 +56,6 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
                             </ul>
                         </div>
                     ) : null}
-                    <div className="pt-4">
-                        <Link href={`/organization/${organization.id}`}><a className="font-semibold">Learn More</a></Link>
-                    </div>
                 </div>
             ) : null}
         </div>

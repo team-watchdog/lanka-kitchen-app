@@ -12,6 +12,9 @@ import { useAuth } from "../../lib/auth";
 import LayoutWithoutAuth from '../../containers/LayoutWithoutAuth';
 import FullOrganization from '../../containers/FullOrganization';
 
+// partials
+import HeadMeta from "../../partials/HeadMeta";
+
 // types
 import { Organization } from "../../types/organization.type";
 
@@ -54,8 +57,15 @@ interface OrganizationPageProps{
 }
 
 const OrganizationPage: NextPage<OrganizationPageProps> = ({ organization }: OrganizationPageProps) => {
+    const title = `${organization.name ? organization.name : ""} | Lanka Kitchen`;
+    const description = organization.summary ? organization.summary : "";
+
     return (
         <LayoutWithoutAuth noRedirect>
+            <HeadMeta 
+                title={title}
+                description={description}
+            />
             <PageWithContext organization={organization} />
         </LayoutWithoutAuth>
     )
