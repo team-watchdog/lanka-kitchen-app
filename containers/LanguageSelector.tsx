@@ -1,21 +1,19 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useContext } from "react";
 
 import { Select } from "../components/Select";
 
 // hooks
-import { Language, useLocale } from "../localize";
+import { Language, LanguageContext } from "../localize";
 
 export const LanguageSelector: FunctionComponent = () => {
-    const { language, setLanguage } = useLocale();
+    const { language, setLanguage } = useContext(LanguageContext);
 
     return (
         <div className="w-[80]px">
             <Select 
                 value={language}
                 onChange={(value) => {
-                    if (value) {
-                        setLanguage(value as Language);
-                    }
+                    setLanguage(value as Language);
                 }}
                 options={[
                     {
