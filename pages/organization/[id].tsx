@@ -32,9 +32,10 @@ interface PageWithContextProps{
 }
 
 const PageWithContext: FunctionComponent<PageWithContextProps> = ({ organization }: PageWithContextProps) => {
-    if (!organization || !organization.id) return null;
     const { organizationId } = useAuth();
     const router = useRouter();
+    
+    if (!organization || !organization.id) return null;
     
     if (organizationId === organization.id) {
         router.push('/organization');

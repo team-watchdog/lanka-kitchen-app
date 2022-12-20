@@ -10,7 +10,7 @@ const SignOut: NextPage = () => {
     useEffect(() => {
         removeTokenCookie();
         router.push("/auth/signin");
-    }, [])
+    }, [router])
 
     return null;
 }
