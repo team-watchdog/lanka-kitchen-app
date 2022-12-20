@@ -1,6 +1,7 @@
 export const LocalizedStrings: {[key: string]: {[key: string]: string}} = {
     SignUpHeading: {
         en: "Sign up your community organization",
+        si: "ඔබේ ප්‍රජා සංවිධානය ලියාපදිංචි කරන්න",
     },
     SignUpDescription: {
         en: "Are you a community organization helping Sri Lankan households with their essential food requirements during the economic crisis? Sign up to join our database.",

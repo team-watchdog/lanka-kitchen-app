@@ -21,7 +21,7 @@ export const OrganizationItem: FunctionComponent<OrganizationItemProps> = (props
                     </h3>
                     <a href="" className="flex items-center"><LocationMarkerIcon className="w-4 h-4 font-bold mr-2"/> Multiple Locations</a>
                     {organization.assistanceTypes && organization.assistanceTypes.length > 0 ? (
-                        <div className="py-2 flex gap-1">
+                        <div className="py-2 flex gap-1 flex-wrap">
                             {organization.assistanceTypes?.map((type, i) => (
                                 <span className="p-2 bg-teal-800 text-white rounded-md text-sm" key={i}>{type}</span>
                             ))}

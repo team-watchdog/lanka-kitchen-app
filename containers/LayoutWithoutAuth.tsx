@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import { useAuth } from "../lib/auth";
 
 // containers
-import { Header } from "./Header";
+import { Loading } from "../components/Loading";
 
 // styles
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,7 +36,7 @@ const LayoutWithoutAuth: FunctionComponent<LayoutWithoutAuthProps> = ({ noRedire
 
     if (loading) {
         return (
-            <div>Loading</div>
+            <Loading />
         )
     }
 
