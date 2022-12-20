@@ -15,7 +15,7 @@ import { InputText } from '../../components/Input';
 import { Select } from "../../components/Select";
 
 // localized
-import { getLocalizedString } from "../../localize";
+import { useLocale } from "../../localize";
 
 // styles
 import styles from '../../styles/Home.module.css';
@@ -31,16 +31,16 @@ interface TeamInviteInput{
 }
 
 const TeamInvite: NextPage = () => {
-    const lang = "en";
-
+    const { getLocalizedString } = useLocale();
     const { push } = useRouter();
+
     const [ inviteTeamMember, { loading: submitting }] = useMutation(TeamMutations.inviteTeamMember);
     
     return (
         <div className={styles.container}>
             <div className="py-8">
-                <h3 className="text-2xl font-bold">{getLocalizedString("TeamInviteHeading", lang)}</h3>
-                <p className="py-2">{getLocalizedString("TeamInviteDescription", lang)}</p>
+                <h3 className="text-2xl font-bold">{getLocalizedString("TeamInviteHeading")}</h3>
+                <p className="py-2">{getLocalizedString("TeamInviteDescription")}</p>
             </div>
             <div>
                 <Formik
@@ -67,11 +67,11 @@ const TeamInvite: NextPage = () => {
                     validate={(values) => {
                         const errors: FormikErrors<TeamInviteInput> = {};
 
-                        if (!values.firstName) errors.firstName = getLocalizedString("TeamInviteFirstNameRequired", lang);
-                        if (!values.lastName) errors.lastName = getLocalizedString("TeamInviteLastNameRequired", lang);
+                        if (!values.firstName) errors.firstName = getLocalizedString("TeamInviteFirstNameRequired");
+                        if (!values.lastName) errors.lastName = getLocalizedString("TeamInviteLastNameRequired");
 
-                        if (!values.email) errors.email = getLocalizedString("TeamInviteEmailRequired", lang);
-                        else if (!isEmail(values.email)) errors.email = getLocalizedString("TeamInviteEmailInvalid", lang);
+                        if (!values.email) errors.email = getLocalizedString("TeamInviteEmailRequired");
+                        else if (!isEmail(values.email)) errors.email = getLocalizedString("TeamInviteEmailInvalid");
 
                         return errors;
                     }}
@@ -79,7 +79,7 @@ const TeamInvite: NextPage = () => {
                     {({ values, errors, setFieldValue, submitForm }) => (
                         <div>
                             <FormItem
-                                label={getLocalizedString("FieldsFirstName", lang)}
+                                label={getLocalizedString("FieldsFirstName")}
                                 required
                                 help={errors.firstName}
                                 status={errors.firstName ? "error" : undefined}
@@ -90,7 +90,7 @@ const TeamInvite: NextPage = () => {
                                 />
                             </FormItem>
                             <FormItem
-                                label={getLocalizedString("FieldsLastName", lang)}
+                                label={getLocalizedString("FieldsLastName")}
                                 required
                                 help={errors.lastName}
                                 status={errors.lastName ? "error" : undefined}
@@ -101,7 +101,7 @@ const TeamInvite: NextPage = () => {
                                 />
                             </FormItem>
                             <FormItem
-                                label={getLocalizedString("FieldsEmail", lang)}
+                                label={getLocalizedString("FieldsEmail")}
                                 required
                                 help={errors.email}
                                 status={errors.email ? "error" : undefined}
@@ -113,7 +113,7 @@ const TeamInvite: NextPage = () => {
                                 />
                             </FormItem>
                             <FormItem
-                                label={getLocalizedString("FieldsUserRole", lang)}
+                                label={getLocalizedString("FieldsUserRole")}
                                 required
                             >
                                 <Select 
@@ -137,7 +137,7 @@ const TeamInvite: NextPage = () => {
                                         submitForm();
                                     }}
                                     loading={submitting}
-                                >{getLocalizedString("TeamInviteSubmitButton", lang)}</Button>
+                                >{getLocalizedString("TeamInviteSubmitButton")}</Button>
                             </div>
                         </div>
                     )}
