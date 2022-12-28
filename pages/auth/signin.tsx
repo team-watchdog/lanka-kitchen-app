@@ -23,6 +23,8 @@ import { AuthMutations } from "../../queries/auth.queries";
 // auth
 import { setTokenCookie } from "../../lib/auth-cookies";
 
+const WHATSAPP_LINK = process.env.NEXT_PUBLIC_WHATSAPP_LINK ?? "";
+
 interface SignInForm{
     email: string;
     password: string;
@@ -110,7 +112,7 @@ const SignIn: NextPage = () => {
                                         <Link href="/auth/forgot-password"><a>{retrieveLocalizedString(language, "ForgotPassword")}</a></Link>
                                     </div>
                                     <div>
-                                        {retrieveLocalizedString(language, "DontHaveAnAccountText")} <Link href="/auth/signup"><a>{retrieveLocalizedString(language, "SignUpText")}</a></Link>
+                                        {retrieveLocalizedString(language, "DontHaveAnAccountText")} <Link href={WHATSAPP_LINK}><a>{retrieveLocalizedString(language, "SignUpText")}</a></Link>
                                     </div>
                                 </div>
                             </div>
