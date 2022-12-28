@@ -12,6 +12,7 @@ export const AccountQueries = {
                 permissions
                 organization {
                     id
+                    approved
                 }
             }
         }

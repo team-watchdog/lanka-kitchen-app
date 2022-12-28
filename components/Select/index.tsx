@@ -32,6 +32,9 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         inputStyles = [...inputStyles, "border-success-color outline-success-color"];
     }
 
+    console.log(`PLACEHOLDER: ${placeholder} ${value}`);
+    console.log(value);
+
     return (
         <select
             onChange={(e) => {
@@ -43,7 +46,7 @@ export const Select: FunctionComponent<SelectProps> = (props) => {
         >
             {options ? options.map((option, i) => (
                 <option key={i} value={JSON.stringify(option.value)}>{option.label}</option>
-            )) : []}
+            )) : null}
         </select>
     );
 }

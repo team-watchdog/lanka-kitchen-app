@@ -41,7 +41,11 @@ export const LocaleStringMap: {[key: string]: {[key: string]: string}} = {
         "TeamInviteFirstNameRequired": "First name is required",
         "TeamInviteLastNameRequired": "Last name is required",
         "TeamInviteEmailRequired": "Email is required",
-        "TeamInviteEmailInvalid": "Email is invalid"
+        "TeamInviteEmailInvalid": "Email is invalid",
+        "OrganizationNotApproved": "Your organization hasn't been approved yet and won't be visible to the public.",
+        "OrganizationNotApprovedCallToAction": "Book a call with us so we can get your organization approved.",
+        "OrganizationNotApprovedCallToActionLink": "Book onboarding call",
+        "ContactUs": "Contact us",
     },
     // translate all fields in the "en" object to Sinhala under same key
     "si": {

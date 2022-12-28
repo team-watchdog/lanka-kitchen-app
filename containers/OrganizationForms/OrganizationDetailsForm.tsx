@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from "react";
-import { useFormik } from "formik";
+import { useFormik, FormikErrors } from "formik";
 import { gql, useQuery, useMutation, ApolloError } from "@apollo/client";
 import { toast } from "react-toastify";
 
@@ -52,6 +52,15 @@ const OrganizationDetailsForm: FunctionComponent = () => {
 
     const formik = useFormik({
         initialValues: initialValues,
+        validate: (values) => {
+            const errors: FormikErrors<OrganizationDetailsPayload> = {};
+
+            if (!values.name) errors["name"] = "Organization name is required";
+            if (!values.summary) errors["summary"] = "Organization summary is required";
+            if (!values.description) errors["description"] = "Organization description is required";
+
+            return errors;
+        },
         onSubmit: async (values) => {
             try {
                 await updateOrganizationDetails({ 
@@ -87,11 +96,16 @@ const OrganizationDetailsForm: FunctionComponent = () => {
         }
     });
 
-    const { values, setFieldValue } = formik;
+    const { values, errors, setFieldValue } = formik;
 
     useEffect(() => {
         if (data?.me?.organization) {
-            formik.setValues(data.me.organization);
+            console.log(data.me.organization);
+            formik.setValues({
+                ...data.me.organization,
+                assistanceFrequency: data.me.organization.assistanceFrequency || "Weekly",
+                peopleReached: data.me.organization.peopleReached || "1-20",
+            });
         }
     }, [ data ]);
 
@@ -99,9 +113,15 @@ const OrganizationDetailsForm: FunctionComponent = () => {
 
     return (
         <form onSubmit={formik.submitForm}>
-            <FormItem label="Organization Name" required>
+            <FormItem 
+                label="Organization Name"
+                required
+                status={errors.name ? "error" : null}
+                help={errors.name}
+            >
                 <InputText 
                     value={values.name}
+                    status={errors.name ? "error" : undefined}
                     onChange={(value) => setFieldValue("name", value)}
                 />
             </FormItem>
@@ -113,20 +133,32 @@ const OrganizationDetailsForm: FunctionComponent = () => {
                     }}
                 />
             </FormItem>
-            <FormItem label="Summary" required>
-                <textarea 
+            <FormItem 
+                label="Summary" 
+                required
+                status={errors.summary ? "error" : null}
+                help={errors.summary}
+            >
+                <InputText 
+                    type="textarea"
                     rows={4}
-                    className={inputStyles.join(" ")}
-                    value={values.summary ? values.summary : undefined}
-                    onChange={(e) => setFieldValue("summary", e.target.value)}
+                    value={values.summary}
+                    status={errors.summary ? "error" : undefined}
+                    onChange={(value) => setFieldValue("summary", value)}
                 />
             </FormItem>
-            <FormItem label="Description" required>
-                <textarea 
+            <FormItem 
+                label="Description" 
+                required
+                status={errors.description ? "error" : null}
+                help={errors.description}
+            >
+                <InputText 
+                    type="textarea"
                     rows={4}
-                    className={inputStyles.join(" ")}
-                    value={values.description ? values.description : undefined}
-                    onChange={(e) => setFieldValue("description", e.target.value)}
+                    value={values.description}
+                    status={errors.description ? "error" : undefined}
+                    onChange={(value) => setFieldValue("description", value)}
                 />
             </FormItem>
             <FormItem label="Type of assistance provided" required>

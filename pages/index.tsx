@@ -104,7 +104,7 @@ const DirectoryContainer: FunctionComponent = () => {
                         <p>Watchdog Foodbank project is an effort to help community kitchens, ration support groups, and other mutual aid organizations run their operations more smoothly and garner support from their communities during this time of crisis.</p>
                         <div className="flex gap-x-2 gap-y-2 py-4 flex-wrap">
                             <Button type="default" onMouseDown={() => {
-                                window.location.href = WHATSAPP_LINK;
+                                push("/auth/signup");
                             }}><LibraryIcon className="w-4 h-4" />Register your organization</Button>
                         </div>
                     </div>

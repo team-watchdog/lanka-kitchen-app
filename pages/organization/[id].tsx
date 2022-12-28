@@ -40,7 +40,7 @@ const PageWithContext: FunctionComponent<PageWithContextProps> = ({ organization
     
     if (!organization || !organization.id) return null;
     
-    if (organizationId === organization.id) {
+    if (organizationId && organizationId === organization.id) {
         router.push('/organization');
     }
 
@@ -57,8 +57,8 @@ interface OrganizationPageProps{
 }
 
 const OrganizationPage: NextPage<OrganizationPageProps> = ({ organization }: OrganizationPageProps) => {
-    const title = `${organization.name ? organization.name : ""} | Lanka Kitchen`;
-    const description = organization.summary ? organization.summary : "";
+    const title = `${organization && organization.name ? organization.name : ""} | Lanka Kitchen`;
+    const description = organization && organization.summary ? organization.summary : "";
 
     return (
         <LayoutWithoutAuth noRedirect>
@@ -73,8 +73,19 @@ const OrganizationPage: NextPage<OrganizationPageProps> = ({ organization }: Org
 
 
 export async function getServerSideProps({ params }: { params: { id: string } }) {
+    console.log(params);
     const organizationId = params.id ? parseInt(params.id) : null;
+    console.log(`ORGANIZATION ID = ${organizationId}`);
+
     let organization = null;
+
+    if (!organizationId) {
+        return {
+            props: {
+                organization,
+            },
+        }
+    }
 
     try {
         const resp = await getClientWithAuth(null).query({
@@ -88,7 +99,7 @@ export async function getServerSideProps({ params }: { params: { id: string } })
             organization = resp.data.getOrganization;
         }
     } catch (e) {
-        console.log(e);
+        console.log(`ERROR HERE`, e);
     }
 
     return {
