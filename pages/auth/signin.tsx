@@ -23,6 +23,9 @@ import { AuthMutations } from "../../queries/auth.queries";
 // auth
 import { setTokenCookie } from "../../lib/auth-cookies";
 
+// styles
+import styles from '../../styles/Home.module.css'
+
 const WHATSAPP_LINK = process.env.NEXT_PUBLIC_WHATSAPP_LINK ?? "";
 
 interface SignInForm{
@@ -37,7 +40,7 @@ const SignIn: NextPage = () => {
 
     return (
         <div>
-            <div className="container max-w-screen-md m-auto">
+            <div className={styles.container} style={{ width: "100%" }}>
                 <div className="py-8">
                     <h3 className="text-2xl font-bold">{retrieveLocalizedString(language, "SignInHeading")}</h3>
                     <p className="py-2">{retrieveLocalizedString(language, "SignInDescription")}</p>
@@ -112,7 +115,7 @@ const SignIn: NextPage = () => {
                                         <Link href="/auth/forgot-password"><a>{retrieveLocalizedString(language, "ForgotPassword")}</a></Link>
                                     </div>
                                     <div>
-                                        {retrieveLocalizedString(language, "DontHaveAnAccountText")} <Link href={WHATSAPP_LINK}><a>{retrieveLocalizedString(language, "SignUpText")}</a></Link>
+                                        {retrieveLocalizedString(language, "DontHaveAnAccountText")} <Link href="/auth/signup"><a>{retrieveLocalizedString(language, "SignUpText")}</a></Link>
                                     </div>
                                 </div>
                             </div>
