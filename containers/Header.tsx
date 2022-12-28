@@ -25,7 +25,7 @@ export const Header: FunctionComponent = () => {
     const { language } = useContext(LanguageContext);
 
     return (
-        <div className="sticky top-0 w-full z-50">
+        <div className="sticky top-0 w-full z-10">
             {organization && organization.approved === false && (
                 <div className="bg-amber-400 w-full">
                     <div className={styles.container} style={{ width: "100%" }}>
